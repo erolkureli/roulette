@@ -50,17 +50,17 @@ public final class Game implements Runnable {
       e.printStackTrace();
     }
 
-    Scanner myObj = new Scanner(System.in);
+    Scanner scanner = new Scanner(System.in);
     System.out.println("Enter your bet : ");
 
     while (true) {
-      String round = null;
+      String play = null;
       try {
-        round = myObj.nextLine();
-        String[] roundInput = round.split("\\s+");
-        String playerName = roundInput[0].trim();
-        String guess = roundInput[1].trim();
-        Double betMoney = Double.valueOf(roundInput[2].trim());
+        play = scanner.nextLine();
+        String[] singlePlay = play.split("\\s+");
+        String playerName = singlePlay[0].trim();
+        String guess = singlePlay[1].trim();
+        Double betMoney = Double.valueOf(singlePlay[2].trim());
 
         if(playerNames.contains(playerName)) {
           Player player = new Player(playerName);
@@ -71,7 +71,7 @@ public final class Game implements Runnable {
         }
         TimeUnit.SECONDS.sleep(GAME_PERIOD);
       } catch (Exception e) {
-        e.printStackTrace();
+
       }
     }
   }
@@ -82,52 +82,65 @@ public final class Game implements Runnable {
     betList.forEach(bet -> {
       if (bet.getBettingNumber().equals(String.valueOf(EVEN))) {
         if (isEven) {
-          evaluate(WIN, EVEN, bet);
+          calculateRoundPoints(WIN, EVEN, bet);
         } else {
-          evaluate(LOSE, EVEN, bet);
+          calculateRoundPoints(LOSE, EVEN, bet);
         }
       } else if (bet.getBettingNumber().equals(String.valueOf(ODD))) {
         if (!isEven) {
-          evaluate(WIN, ODD, bet);
+          calculateRoundPoints(WIN, ODD, bet);
         } else {
-          evaluate(LOSE, ODD, bet);
+          calculateRoundPoints(LOSE, ODD, bet);
         }
       } else {
         if (String.valueOf(randomNumber).equals(bet.getBettingNumber())) {
-          evaluate(WIN, OTHER, bet);
+          calculateRoundPoints(WIN, OTHER, bet);
         } else {
-          evaluate(LOSE, OTHER, bet);
+          calculateRoundPoints(LOSE, OTHER, bet);
         }
       }
     });
 
+    displayRoundInfo(randomNumber);
+
+    clearRoundInfo();
+
+    displaySpaces();
+
+    displayTotalInfo();
+
+    displaySpaces();
+  }
+
+  private void clearRoundInfo() {
+    betList.clear();
+    resultList.clear();
+  }
+
+  private void displaySpaces() {
+    System.out.println("");
+    System.out.println("");
+    System.out.println("");
+  }
+
+  private void displayTotalInfo() {
+    System.out.println("Player Total Win Total Bet");
+    System.out.println("- - -");
+    totalResultList.forEach(result ->{
+      System.out.println(result);
+    });
+  }
+
+  private void displayRoundInfo(int randomNumber) {
     System.out.println("Number : " + randomNumber);
     System.out.println("Player Bet Outcome Winnings");
     System.out.println("- - -");
     resultList.forEach(result -> {
       System.out.println(result);
     });
-
-
-    betList.clear();
-    resultList.clear();
-
-    System.out.println("");
-    System.out.println("");
-    System.out.println("");
-
-    System.out.println("Player Total Win Total Bet");
-    System.out.println("- - -");
-    totalResultList.forEach(result ->{
-      System.out.println(result);
-    });
-
-    System.out.println("");
-    System.out.println("");
-    System.out.println("");
   }
 
-  private void evaluate(BetResult betResult, Type type, Bet bet) {
+  private void calculateRoundPoints(BetResult betResult, Type type, Bet bet) {
     Result result;
     double winMoney = 0.0;
     if (type.equals(ODD) || type.equals(EVEN)) {

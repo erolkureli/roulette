@@ -20,7 +20,7 @@ public final class NumberGenerator {
         generatedNumber.set(random.nextInt(MAX_VALUE - MIN_VALUE + 1) + MIN_VALUE);
         game.finishRound(generatedNumber.get());
       } catch (Exception ex) {
-        //log the error and exit ???
+
       }
     }
   }
