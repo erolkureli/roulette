@@ -13,7 +13,7 @@ public final class NumberGenerator {
   private static AtomicInteger generatedNumber = new AtomicInteger(0);
   private static Random random = new Random();
 
-  public static void generateRandomNumber(Game game) {
+  public synchronized static void generateRandomNumber(Game game) {
     while (true) {
       try {
         TimeUnit.SECONDS.sleep(NUMBER_GENERATION_PERIOD);

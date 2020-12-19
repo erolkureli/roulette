@@ -23,11 +23,11 @@ public class TotalResult {
     return totalWin;
   }
 
-  public void setTotalBet(double totalBet) {
+  public synchronized void setTotalBet(double totalBet) {
     this.totalBet = totalBet;
   }
 
-  public void setTotalWin(double totalWin) {
+  public synchronized void setTotalWin(double totalWin) {
     this.totalWin = totalWin;
   }
 

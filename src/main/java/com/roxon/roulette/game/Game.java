@@ -6,6 +6,7 @@ import static com.roxon.roulette.model.Type.EVEN;
 import static com.roxon.roulette.model.Type.ODD;
 import static com.roxon.roulette.model.Type.OTHER;
 
+import com.roxon.roulette.display.Display;
 import com.roxon.roulette.model.Bet;
 import com.roxon.roulette.model.BetResult;
 import com.roxon.roulette.model.Player;
@@ -54,7 +55,7 @@ public final class Game implements Runnable {
     System.out.println("Enter your bet : ");
 
     while (true) {
-      String play = null;
+      String play;
       try {
         play = scanner.nextLine();
         String[] singlePlay = play.split("\\s+");
@@ -77,6 +78,20 @@ public final class Game implements Runnable {
   }
 
   public void finishRound(int randomNumber) {
+    calculateAllRoundPoints(randomNumber);
+
+    Display.displayRoundInfo(randomNumber, resultList);
+
+    clearRoundInfo();
+
+    Display.displaySpaces();
+
+    Display.displayTotalInfo(totalResultList);
+
+    Display.displaySpaces();
+  }
+
+  private void calculateAllRoundPoints(int randomNumber) {
     boolean isEven = randomNumber % 2 == 0;
 
     betList.forEach(bet -> {
@@ -100,16 +115,6 @@ public final class Game implements Runnable {
         }
       }
     });
-
-    displayRoundInfo(randomNumber);
-
-    clearRoundInfo();
-
-    displaySpaces();
-
-    displayTotalInfo();
-
-    displaySpaces();
   }
 
   private void clearRoundInfo() {
@@ -117,28 +122,7 @@ public final class Game implements Runnable {
     resultList.clear();
   }
 
-  private void displaySpaces() {
-    System.out.println("");
-    System.out.println("");
-    System.out.println("");
-  }
 
-  private void displayTotalInfo() {
-    System.out.println("Player Total Win Total Bet");
-    System.out.println("- - -");
-    totalResultList.forEach(result ->{
-      System.out.println(result);
-    });
-  }
-
-  private void displayRoundInfo(int randomNumber) {
-    System.out.println("Number : " + randomNumber);
-    System.out.println("Player Bet Outcome Winnings");
-    System.out.println("- - -");
-    resultList.forEach(result -> {
-      System.out.println(result);
-    });
-  }
 
   private void calculateRoundPoints(BetResult betResult, Type type, Bet bet) {
     Result result;
