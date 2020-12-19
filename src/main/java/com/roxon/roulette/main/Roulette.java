@@ -1,4 +1,4 @@
-
+package com.roxon.roulette.main;
 
 import static java.util.logging.Level.SEVERE;
 

@@ -18,7 +18,7 @@ import static org.powermock.api.mockito.PowerMockito.spy;
 public class NumberGeneratorTest {
 
   @Test
-  public void testMethod1Invocation() throws Exception {
+  public void When_FinishRound_Called_Then_Should_Finish_Round() throws Exception {
 
     spy(NumberGenerator.class);
 

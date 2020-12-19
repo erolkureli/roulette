@@ -58,28 +58,31 @@ public final class Game implements Runnable {
     }
 
     Scanner scanner = new Scanner(System.in);
-
     while (true) {
-      String play;
-      try {
-        System.out.println("Enter your bet : ");
-        play = scanner.nextLine();
-        String[] singlePlay = play.split("\\s+");
-        String playerName = singlePlay[0].trim();
-        String guess = singlePlay[1].trim();
-        Double betMoney = Double.valueOf(singlePlay[2].trim());
+      saveNewBet(scanner);
+    }
+  }
 
-        if(playerNames.contains(playerName)) {
-          Player player = new Player(playerName);
-          Bet bet = new Bet(player, guess, betMoney);
-          betList.add(bet);
-        }else {
-          System.out.println("Player " + playerName + " not exist in the player list ");
-        }
-        TimeUnit.SECONDS.sleep(GAME_PERIOD);
-      } catch (Exception ex) {
-        logger.log(SEVERE, ex.getMessage());
+  private void saveNewBet(Scanner scanner) {
+    String play;
+    try {
+      System.out.println("Enter your bet : ");
+      play = scanner.nextLine();
+      String[] singlePlay = play.split("\\s+");
+      String playerName = singlePlay[0].trim();
+      String guess = singlePlay[1].trim();
+      Double betMoney = Double.valueOf(singlePlay[2].trim());
+
+      if(playerNames.contains(playerName)) {
+        Player player = new Player(playerName);
+        Bet bet = new Bet(player, guess, betMoney);
+        betList.add(bet);
+      }else {
+        System.out.println("Player " + playerName + " not exist in the player list ");
       }
+      TimeUnit.SECONDS.sleep(GAME_PERIOD);
+    } catch (Exception ex) {
+      logger.log(SEVERE, ex.getMessage());
     }
   }
 
