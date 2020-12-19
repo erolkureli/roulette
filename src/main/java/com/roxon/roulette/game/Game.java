@@ -179,7 +179,6 @@ public final class Game implements Runnable {
 
       TotalResult totalResult = new TotalResult(new Player(playerName), totalWin, totalBet);
       totalResultList.add(totalResult);
-      System.out.println(playerName);
       playerNames.add(playerName);
     }
     reader.close();
