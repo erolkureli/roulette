@@ -8,11 +8,11 @@ The names of the players are case sensitive.
 
 If a player bets more than once in a round, each bet's result is displayed individually.
 
-SAMPLE INPUT FILE
+SAMPLE INPUT FILE 1
 Eyup, 1.0,2.0
 Erol, 5.0,7.0
 
-SAMPLE RUN
+SAMPLE RUN 1
 
 Enter your bet :
 Eyup ODD 1
@@ -34,3 +34,42 @@ Player Total Win Total Bet
 - - -
 Eyup 3.0 3.0
 Erol 5.0 16.99
+
+-----------------------
+-----------------------
+
+SAMPLE INPUT FILE 1
+Eyup, 1.0,2.0
+Erol, 5.0,7.0
+
+SAMPLE RUN 2
+
+Enter your bet :
+Eyup ODD 999.99
+Enter your bet :
+Erol EVEN 9999.98
+Enter your bet :
+Erol 1 2.3
+Enter your bet :
+Eyup 2 2.3
+Enter your bet :
+Ali 1 1.2
+Player Ali not exist in the player list
+Enter your bet :
+
+
+
+Number : 30
+Player Bet Outcome Winnings
+- - -
+Eyup  ODD LOSE  0
+Erol  EVEN WIN  19999.96
+Erol  1 LOSE  0
+Eyup  2 LOSE  0
+
+
+
+Player Total Win Total Bet
+- - -
+Eyup 1.0 1004.29
+Erol 20004.96 10009.28
