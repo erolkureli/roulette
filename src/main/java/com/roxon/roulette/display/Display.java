@@ -21,6 +21,7 @@ public class Display {
   }
 
   public static void displayRoundInfo(int randomNumber, List<Result> resultList) {
+    displaySpaces();
     System.out.println("Number : " + randomNumber);
     System.out.println("Player Bet Outcome Winnings");
     System.out.println("- - -");

@@ -154,8 +154,12 @@ public final class Game implements Runnable {
     Optional<TotalResult> totalResultOpt = totalResultList.stream().filter(r->r.getPlayer().getName().equals(bet.getPlayer().getName())).findFirst();
     if(totalResultOpt.isPresent()){
       TotalResult totalResult = totalResultOpt.get();
-      totalResult.setTotalBet(totalResult.getTotalBet() + bet.getMoneyBet());
-      totalResult.setTotalWin(totalResult.getTotalWin() + winMoney);
+
+      Double totalBet = Double.sum(totalResult.getTotalBet() , bet.getMoneyBet());
+      Double totalWin = Double.sum(totalResult.getTotalWin() , winMoney);
+
+      totalResult.setTotalBet(totalBet);
+      totalResult.setTotalWin(totalWin);
     }
   }
 

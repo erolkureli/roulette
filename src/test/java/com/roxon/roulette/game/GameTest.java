@@ -55,7 +55,6 @@ public class GameTest {
     System.setIn(new ByteArrayInputStream(input.getBytes()));
     Scanner scanner = new Scanner(System.in);
 
-
     Method saveNewBet = Game.class.getDeclaredMethod(
         "saveNewBet",
         Scanner.class
@@ -76,12 +75,13 @@ public class GameTest {
     Field fieldBetList = game.getClass().getDeclaredField("betList");
     fieldBetList.setAccessible(true);
     Object value = fieldBetList.get(game);
-    List<Bet> betList = (List)value;
+    List<Bet> betList = (List) value;
     assertTrue(betList.size() == 1);
   }
 
   @Test
-  public void When_Finish_Round_Called_Then_Round_and_Total_Points_Should_Be_Calculated_For_Number_Guess_Win() throws Exception {
+  public void When_Finish_Round_Called_Then_Round_and_Total_Points_Should_Be_Calculated_For_Number_Guess_Win()
+      throws Exception {
     Game game = Game.getInstance();
 
     Player player = new Player("Erol");
@@ -104,12 +104,15 @@ public class GameTest {
     game.finishRound(ODD_RANDOM_NUMBER);
 
     Object value = fieldTotalResultList.get(game);
-    List<TotalResult> newTotalResultList = (List)value;
+    List<TotalResult> newTotalResultList = (List) value;
     assertTrue(newTotalResultList.size() == 1);
+    assertTrue(newTotalResultList.get(0).getTotalWin() == 72.0);
+    assertTrue(newTotalResultList.get(0).getTotalBet() == 2.0);
   }
 
   @Test
-  public void When_Finish_Round_Called_Then_Round_and_Total_Points_Should_Be_Calculated_For_Number_Guess_Lose() throws Exception {
+  public void When_Finish_Round_Called_Then_Round_and_Total_Points_Should_Be_Calculated_For_Number_Guess_Lose()
+      throws Exception {
     Game game = Game.getInstance();
 
     Player player = new Player("Erol");
@@ -132,12 +135,15 @@ public class GameTest {
     game.finishRound(EVEN_RANDOM_NUMBER);
 
     Object value = fieldTotalResultList.get(game);
-    List<TotalResult> newTotalResultList = (List)value;
+    List<TotalResult> newTotalResultList = (List) value;
     assertTrue(newTotalResultList.size() == 1);
+    assertTrue(newTotalResultList.get(0).getTotalWin() == 0.0);
+    assertTrue(newTotalResultList.get(0).getTotalBet() == 2.0);
   }
 
   @Test
-  public void When_Finish_Round_Called_Then_Round_and_Total_Points_Should_Be_Calculated_For_Even_Guess_Lose() throws Exception {
+  public void When_Finish_Round_Called_Then_Round_and_Total_Points_Should_Be_Calculated_For_Even_Guess_Lose()
+      throws Exception {
     Game game = Game.getInstance();
 
     Player player = new Player("Erol");
@@ -160,12 +166,15 @@ public class GameTest {
     game.finishRound(ODD_RANDOM_NUMBER);
 
     Object value = fieldTotalResultList.get(game);
-    List<TotalResult> newTotalResultList = (List)value;
+    List<TotalResult> newTotalResultList = (List) value;
     assertTrue(newTotalResultList.size() == 1);
+    assertTrue(newTotalResultList.get(0).getTotalWin() == 0.0);
+    assertTrue(newTotalResultList.get(0).getTotalBet() == 2.0);
   }
 
   @Test
-  public void When_Finish_Round_Called_Then_Round_and_Total_Points_Should_Be_Calculated_For_Even_Guess_Win() throws Exception {
+  public void When_Finish_Round_Called_Then_Round_and_Total_Points_Should_Be_Calculated_For_Even_Guess_Win()
+      throws Exception {
     Game game = Game.getInstance();
 
     Player player = new Player("Erol");
@@ -188,12 +197,15 @@ public class GameTest {
     game.finishRound(EVEN_RANDOM_NUMBER);
 
     Object value = fieldTotalResultList.get(game);
-    List<TotalResult> newTotalResultList = (List)value;
+    List<TotalResult> newTotalResultList = (List) value;
     assertTrue(newTotalResultList.size() == 1);
+    assertTrue(newTotalResultList.get(0).getTotalWin() == 4.0);
+    assertTrue(newTotalResultList.get(0).getTotalBet() == 2.0);
   }
 
   @Test
-  public void When_Finish_Round_Called_Then_Round_and_Total_Points_Should_Be_Calculated_For_Odd_Guess_Lose() throws Exception {
+  public void When_Finish_Round_Called_Then_Round_and_Total_Points_Should_Be_Calculated_For_Odd_Guess_Lose()
+      throws Exception {
     Game game = Game.getInstance();
 
     Player player = new Player("Erol");
@@ -216,12 +228,15 @@ public class GameTest {
     game.finishRound(EVEN_RANDOM_NUMBER);
 
     Object value = fieldTotalResultList.get(game);
-    List<TotalResult> newTotalResultList = (List)value;
+    List<TotalResult> newTotalResultList = (List) value;
     assertTrue(newTotalResultList.size() == 1);
+    assertTrue(newTotalResultList.get(0).getTotalWin() == 0.0);
+    assertTrue(newTotalResultList.get(0).getTotalBet() == 2.0);
   }
 
   @Test
-  public void When_Finish_Round_Called_Then_Round_and_Total_Points_Should_Be_Calculated_For_Odd_Guess_Win() throws Exception {
+  public void When_Finish_Round_Called_Then_Round_and_Total_Points_Should_Be_Calculated_For_Odd_Guess_Win()
+      throws Exception {
     Game game = Game.getInstance();
 
     Player player = new Player("Erol");
@@ -244,8 +259,10 @@ public class GameTest {
     game.finishRound(ODD_RANDOM_NUMBER);
 
     Object value = fieldTotalResultList.get(game);
-    List<TotalResult> newTotalResultList = (List)value;
+    List<TotalResult> newTotalResultList = (List) value;
     assertTrue(newTotalResultList.size() == 1);
+    assertTrue(newTotalResultList.get(0).getTotalWin() == 4.0);
+    assertTrue(newTotalResultList.get(0).getTotalBet() == 2.0);
   }
 
   @Test
@@ -263,13 +280,13 @@ public class GameTest {
     Field fieldTotalResultList = game.getClass().getDeclaredField("totalResultList");
     fieldTotalResultList.setAccessible(true);
     Object valueTotalResultList = fieldTotalResultList.get(game);
-    List<TotalResult> totalResultList = (List)valueTotalResultList;
+    List<TotalResult> totalResultList = (List) valueTotalResultList;
     assertTrue(totalResultList.size() == 2);
 
     Field fieldPlayerNames = game.getClass().getDeclaredField("playerNames");
     fieldPlayerNames.setAccessible(true);
     Object valuePlayerNames = fieldPlayerNames.get(game);
-    List<String> playerNames = (List)valuePlayerNames;
+    List<String> playerNames = (List) valuePlayerNames;
     assertTrue(playerNames.size() == 2);
   }
 
