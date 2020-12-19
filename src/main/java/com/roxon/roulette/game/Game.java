@@ -5,6 +5,8 @@ import static com.roxon.roulette.model.BetResult.WIN;
 import static com.roxon.roulette.model.Type.EVEN;
 import static com.roxon.roulette.model.Type.ODD;
 import static com.roxon.roulette.model.Type.OTHER;
+import static java.util.logging.Level.INFO;
+import static java.util.logging.Level.SEVERE;
 
 import com.roxon.roulette.display.Display;
 import com.roxon.roulette.model.Bet;
@@ -21,8 +23,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
 
 public final class Game implements Runnable {
+
+  static Logger logger = Logger.getLogger(Game.class.getName());
 
   private static Game instance;
 
@@ -47,16 +52,17 @@ public final class Game implements Runnable {
   public void run() {
     try {
       initializePlayers();
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
+    } catch (FileNotFoundException ex) {
+      logger.log(SEVERE, ex.getMessage());
+      throw new RuntimeException(ex);
     }
 
     Scanner scanner = new Scanner(System.in);
-    System.out.println("Enter your bet : ");
 
     while (true) {
       String play;
       try {
+        System.out.println("Enter your bet : ");
         play = scanner.nextLine();
         String[] singlePlay = play.split("\\s+");
         String playerName = singlePlay[0].trim();
@@ -71,8 +77,8 @@ public final class Game implements Runnable {
           System.out.println("Player " + playerName + " not exist in the player list ");
         }
         TimeUnit.SECONDS.sleep(GAME_PERIOD);
-      } catch (Exception e) {
-
+      } catch (Exception ex) {
+        logger.log(SEVERE, ex.getMessage());
       }
     }
   }
@@ -122,8 +128,6 @@ public final class Game implements Runnable {
     resultList.clear();
   }
 
-
-
   private void calculateRoundPoints(BetResult betResult, Type type, Bet bet) {
     Result result;
     double winMoney = 0.0;
@@ -159,8 +163,16 @@ public final class Game implements Runnable {
       String playerInput = reader.nextLine();
       String[] totalResults = playerInput.split(",");
       String playerName = totalResults[0].trim();
-      double totalWin = Double.valueOf(totalResults[1].trim());
-      double totalBet = Double.valueOf(totalResults[2].trim());
+
+      double totalWin = 0.0;
+      double totalBet = 0.0;
+
+      try {
+        totalWin = Double.valueOf(totalResults[1].trim());
+        totalBet = Double.valueOf(totalResults[2].trim());
+      }catch (Exception ex){
+        logger.log(INFO, "Total win and total bet are initialized as 0 for " + playerName);
+      }
 
       TotalResult totalResult = new TotalResult(new Player(playerName), totalWin, totalBet);
       totalResultList.add(totalResult);
