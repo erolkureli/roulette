@@ -1,4 +1,4 @@
-The name and initial bet and win values of players are under file src/players.txt.
+The names, initial bet amounts and initial win amounts of players are under file src/players.txt.
 
 If a name does not exist in players.txt file, the application does not allow him to bet.
 

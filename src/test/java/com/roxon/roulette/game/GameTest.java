@@ -23,6 +23,9 @@ import org.powermock.modules.junit4.PowerMockRunner;
 @PrepareForTest({Game.class, Scanner.class})
 public class GameTest {
 
+  static final int ODD_RANDOM_NUMBER = 1;
+  static final int EVEN_RANDOM_NUMBER = 2;
+
   @Before
   public void setup() throws Exception {
     Game game = Game.getInstance();
@@ -78,7 +81,7 @@ public class GameTest {
   }
 
   @Test
-  public void When_Finish_Round_Called_Then_Round_and_Total_Points_Should_Be_Calculated() throws Exception {
+  public void When_Finish_Round_Called_Then_Round_and_Total_Points_Should_Be_Calculated_For_Number_Guess_Win() throws Exception {
     Game game = Game.getInstance();
 
     Player player = new Player("Erol");
@@ -98,7 +101,147 @@ public class GameTest {
     fieldTotalResultList.setAccessible(true);
     fieldTotalResultList.set(game, totalResultList);
 
-    game.finishRound(1);
+    game.finishRound(ODD_RANDOM_NUMBER);
+
+    Object value = fieldTotalResultList.get(game);
+    List<TotalResult> newTotalResultList = (List)value;
+    assertTrue(newTotalResultList.size() == 1);
+  }
+
+  @Test
+  public void When_Finish_Round_Called_Then_Round_and_Total_Points_Should_Be_Calculated_For_Number_Guess_Lose() throws Exception {
+    Game game = Game.getInstance();
+
+    Player player = new Player("Erol");
+    Bet bet = new Bet(player, "1", 2.0);
+    List<Bet> betList = Collections.synchronizedList(new ArrayList());
+    betList.add(bet);
+
+    Field fieldPlayerNames = game.getClass().getDeclaredField("betList");
+    fieldPlayerNames.setAccessible(true);
+    fieldPlayerNames.set(game, betList);
+
+    List<TotalResult> totalResultList = Collections.synchronizedList(new ArrayList());
+    TotalResult totalResult = new TotalResult(player, 0.0, 0.0);
+    totalResultList.add(totalResult);
+
+    Field fieldTotalResultList = game.getClass().getDeclaredField("totalResultList");
+    fieldTotalResultList.setAccessible(true);
+    fieldTotalResultList.set(game, totalResultList);
+
+    game.finishRound(EVEN_RANDOM_NUMBER);
+
+    Object value = fieldTotalResultList.get(game);
+    List<TotalResult> newTotalResultList = (List)value;
+    assertTrue(newTotalResultList.size() == 1);
+  }
+
+  @Test
+  public void When_Finish_Round_Called_Then_Round_and_Total_Points_Should_Be_Calculated_For_Even_Guess_Lose() throws Exception {
+    Game game = Game.getInstance();
+
+    Player player = new Player("Erol");
+    Bet bet = new Bet(player, "EVEN", 2.0);
+    List<Bet> betList = Collections.synchronizedList(new ArrayList());
+    betList.add(bet);
+
+    Field fieldPlayerNames = game.getClass().getDeclaredField("betList");
+    fieldPlayerNames.setAccessible(true);
+    fieldPlayerNames.set(game, betList);
+
+    List<TotalResult> totalResultList = Collections.synchronizedList(new ArrayList());
+    TotalResult totalResult = new TotalResult(player, 0.0, 0.0);
+    totalResultList.add(totalResult);
+
+    Field fieldTotalResultList = game.getClass().getDeclaredField("totalResultList");
+    fieldTotalResultList.setAccessible(true);
+    fieldTotalResultList.set(game, totalResultList);
+
+    game.finishRound(ODD_RANDOM_NUMBER);
+
+    Object value = fieldTotalResultList.get(game);
+    List<TotalResult> newTotalResultList = (List)value;
+    assertTrue(newTotalResultList.size() == 1);
+  }
+
+  @Test
+  public void When_Finish_Round_Called_Then_Round_and_Total_Points_Should_Be_Calculated_For_Even_Guess_Win() throws Exception {
+    Game game = Game.getInstance();
+
+    Player player = new Player("Erol");
+    Bet bet = new Bet(player, "EVEN", 2.0);
+    List<Bet> betList = Collections.synchronizedList(new ArrayList());
+    betList.add(bet);
+
+    Field fieldPlayerNames = game.getClass().getDeclaredField("betList");
+    fieldPlayerNames.setAccessible(true);
+    fieldPlayerNames.set(game, betList);
+
+    List<TotalResult> totalResultList = Collections.synchronizedList(new ArrayList());
+    TotalResult totalResult = new TotalResult(player, 0.0, 0.0);
+    totalResultList.add(totalResult);
+
+    Field fieldTotalResultList = game.getClass().getDeclaredField("totalResultList");
+    fieldTotalResultList.setAccessible(true);
+    fieldTotalResultList.set(game, totalResultList);
+
+    game.finishRound(EVEN_RANDOM_NUMBER);
+
+    Object value = fieldTotalResultList.get(game);
+    List<TotalResult> newTotalResultList = (List)value;
+    assertTrue(newTotalResultList.size() == 1);
+  }
+
+  @Test
+  public void When_Finish_Round_Called_Then_Round_and_Total_Points_Should_Be_Calculated_For_Odd_Guess_Lose() throws Exception {
+    Game game = Game.getInstance();
+
+    Player player = new Player("Erol");
+    Bet bet = new Bet(player, "ODD", 2.0);
+    List<Bet> betList = Collections.synchronizedList(new ArrayList());
+    betList.add(bet);
+
+    Field fieldPlayerNames = game.getClass().getDeclaredField("betList");
+    fieldPlayerNames.setAccessible(true);
+    fieldPlayerNames.set(game, betList);
+
+    List<TotalResult> totalResultList = Collections.synchronizedList(new ArrayList());
+    TotalResult totalResult = new TotalResult(player, 0.0, 0.0);
+    totalResultList.add(totalResult);
+
+    Field fieldTotalResultList = game.getClass().getDeclaredField("totalResultList");
+    fieldTotalResultList.setAccessible(true);
+    fieldTotalResultList.set(game, totalResultList);
+
+    game.finishRound(EVEN_RANDOM_NUMBER);
+
+    Object value = fieldTotalResultList.get(game);
+    List<TotalResult> newTotalResultList = (List)value;
+    assertTrue(newTotalResultList.size() == 1);
+  }
+
+  @Test
+  public void When_Finish_Round_Called_Then_Round_and_Total_Points_Should_Be_Calculated_For_Odd_Guess_Win() throws Exception {
+    Game game = Game.getInstance();
+
+    Player player = new Player("Erol");
+    Bet bet = new Bet(player, "ODD", 2.0);
+    List<Bet> betList = Collections.synchronizedList(new ArrayList());
+    betList.add(bet);
+
+    Field fieldPlayerNames = game.getClass().getDeclaredField("betList");
+    fieldPlayerNames.setAccessible(true);
+    fieldPlayerNames.set(game, betList);
+
+    List<TotalResult> totalResultList = Collections.synchronizedList(new ArrayList());
+    TotalResult totalResult = new TotalResult(player, 0.0, 0.0);
+    totalResultList.add(totalResult);
+
+    Field fieldTotalResultList = game.getClass().getDeclaredField("totalResultList");
+    fieldTotalResultList.setAccessible(true);
+    fieldTotalResultList.set(game, totalResultList);
+
+    game.finishRound(ODD_RANDOM_NUMBER);
 
     Object value = fieldTotalResultList.get(game);
     List<TotalResult> newTotalResultList = (List)value;

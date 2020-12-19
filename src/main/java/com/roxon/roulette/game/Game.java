@@ -47,6 +47,7 @@ public final class Game implements Runnable {
   List<TotalResult> totalResultList = Collections.synchronizedList(new ArrayList());
 
   private static final long GAME_PERIOD = (long) 0.1;
+  private static final String PLAYERS_FILE = "src/players.txt";
 
   @Override
   public void run() {
@@ -160,7 +161,7 @@ public final class Game implements Runnable {
 
 
   private void initializePlayers() throws FileNotFoundException {
-    File players = new File("src/players.txt");
+    File players = new File(PLAYERS_FILE);
     Scanner reader = new Scanner(players);
     while (reader.hasNextLine()) {
       String playerInput = reader.nextLine();
