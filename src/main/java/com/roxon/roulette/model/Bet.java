@@ -1,12 +1,14 @@
 package com.roxon.roulette.model;
 
+import java.math.BigDecimal;
+
 public final class Bet {
 
   private final Player player;
   private final String bettingNumber;
-  private final double moneyBet;
+  private final BigDecimal moneyBet;
 
-  public Bet(Player player, String bettingNumber, double moneyBet) {
+  public Bet(Player player, String bettingNumber, BigDecimal moneyBet) {
     this.player = player;
     this.bettingNumber = bettingNumber;
     this.moneyBet = moneyBet;
@@ -21,7 +23,7 @@ public final class Bet {
         '}';
   }
 
-  public double getMoneyBet() {
+  public BigDecimal getMoneyBet() {
     return moneyBet;
   }
 

@@ -17,6 +17,7 @@ import com.roxon.roulette.model.TotalResult;
 import com.roxon.roulette.model.Type;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -72,7 +73,7 @@ public final class Game implements Runnable {
       String[] singlePlay = play.split("\\s+");
       String playerName = singlePlay[0].trim();
       String guess = singlePlay[1].trim();
-      Double betMoney = Double.valueOf(singlePlay[2].trim());
+      BigDecimal betMoney = new BigDecimal(singlePlay[2].trim());
 
       if(playerNames.contains(playerName)) {
         Player player = new Player(playerName);
@@ -134,20 +135,20 @@ public final class Game implements Runnable {
 
   private void calculateRoundPoints(BetResult betResult, Type type, Bet bet) {
     Result result;
-    double winMoney = 0.0;
+    BigDecimal winMoney = BigDecimal.ZERO;
     if (type.equals(ODD) || type.equals(EVEN)) {
       if (betResult.equals(WIN)) {
-        winMoney = 2 * bet.getMoneyBet();
+        winMoney = bet.getMoneyBet().multiply(new BigDecimal(2.0));
         result = new Result(bet.getPlayer(), bet.getBettingNumber(), WIN, winMoney);
       } else {
-        result = new Result(bet.getPlayer(), bet.getBettingNumber(), LOSE, 0.0);
+        result = new Result(bet.getPlayer(), bet.getBettingNumber(), LOSE, BigDecimal.ZERO);
       }
     } else {
       if (betResult.equals(WIN)) {
-        winMoney = 36 * bet.getMoneyBet();
+        winMoney = bet.getMoneyBet().multiply(new BigDecimal(36.0));
         result = new Result(bet.getPlayer(), bet.getBettingNumber(), WIN, winMoney);
       } else {
-        result = new Result(bet.getPlayer(), bet.getBettingNumber(), LOSE, 0.0);
+        result = new Result(bet.getPlayer(), bet.getBettingNumber(), LOSE, BigDecimal.ZERO);
       }
     }
     resultList.add(result);
@@ -155,8 +156,8 @@ public final class Game implements Runnable {
     if(totalResultOpt.isPresent()){
       TotalResult totalResult = totalResultOpt.get();
 
-      Double totalBet = Double.sum(totalResult.getTotalBet() , bet.getMoneyBet());
-      Double totalWin = Double.sum(totalResult.getTotalWin() , winMoney);
+      BigDecimal totalBet = totalResult.getTotalBet().add(bet.getMoneyBet());
+      BigDecimal totalWin = totalResult.getTotalWin().add(winMoney);
 
       totalResult.setTotalBet(totalBet);
       totalResult.setTotalWin(totalWin);
@@ -172,12 +173,12 @@ public final class Game implements Runnable {
       String[] totalResults = playerInput.split(",");
       String playerName = totalResults[0].trim();
 
-      double totalWin = 0.0;
-      double totalBet = 0.0;
+      BigDecimal totalWin = BigDecimal.ZERO;
+      BigDecimal totalBet = BigDecimal.ZERO;
 
       try {
-        totalWin = Double.valueOf(totalResults[1].trim());
-        totalBet = Double.valueOf(totalResults[2].trim());
+        totalWin = new BigDecimal(totalResults[1].trim());
+        totalBet = new BigDecimal(totalResults[2].trim());
       }catch (Exception ex){
         logger.log(INFO, "Total win and total bet are initialized as 0 for " + playerName);
       }

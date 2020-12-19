@@ -1,11 +1,13 @@
 package com.roxon.roulette.model;
 
+import java.math.BigDecimal;
+
 public class TotalResult {
   private final Player player;
-  private double totalWin;
-  private double totalBet;
+  private BigDecimal totalWin;
+  private BigDecimal totalBet;
 
-  public TotalResult(Player player, double totalWin, double totalBet) {
+  public TotalResult(Player player, BigDecimal totalWin, BigDecimal totalBet) {
     this.player = player;
     this.totalWin = totalWin;
     this.totalBet = totalBet;
@@ -15,19 +17,19 @@ public class TotalResult {
     return player;
   }
 
-  public double getTotalBet() {
+  public BigDecimal getTotalBet() {
     return totalBet;
   }
 
-  public double getTotalWin() {
+  public BigDecimal getTotalWin() {
     return totalWin;
   }
 
-  public synchronized void setTotalBet(double totalBet) {
+  public synchronized void setTotalBet(BigDecimal totalBet) {
     this.totalBet = totalBet;
   }
 
-  public synchronized void setTotalWin(double totalWin) {
+  public synchronized void setTotalWin(BigDecimal totalWin) {
     this.totalWin = totalWin;
   }
 

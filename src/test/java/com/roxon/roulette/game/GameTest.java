@@ -9,6 +9,7 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -85,7 +86,7 @@ public class GameTest {
     Game game = Game.getInstance();
 
     Player player = new Player("Erol");
-    Bet bet = new Bet(player, "1", 2.0);
+    Bet bet = new Bet(player, "1", new BigDecimal(2.0));
     List<Bet> betList = Collections.synchronizedList(new ArrayList());
     betList.add(bet);
 
@@ -94,7 +95,7 @@ public class GameTest {
     fieldPlayerNames.set(game, betList);
 
     List<TotalResult> totalResultList = Collections.synchronizedList(new ArrayList());
-    TotalResult totalResult = new TotalResult(player, 0.0, 0.0);
+    TotalResult totalResult = new TotalResult(player, BigDecimal.ZERO, BigDecimal.ZERO);
     totalResultList.add(totalResult);
 
     Field fieldTotalResultList = game.getClass().getDeclaredField("totalResultList");
@@ -106,8 +107,8 @@ public class GameTest {
     Object value = fieldTotalResultList.get(game);
     List<TotalResult> newTotalResultList = (List) value;
     assertTrue(newTotalResultList.size() == 1);
-    assertTrue(newTotalResultList.get(0).getTotalWin() == 72.0);
-    assertTrue(newTotalResultList.get(0).getTotalBet() == 2.0);
+    assertTrue(newTotalResultList.get(0).getTotalWin().compareTo(BigDecimal.valueOf(72.0)) == 0);
+    assertTrue(newTotalResultList.get(0).getTotalBet().compareTo(BigDecimal.valueOf(2.0)) == 0);
   }
 
   @Test
@@ -116,7 +117,7 @@ public class GameTest {
     Game game = Game.getInstance();
 
     Player player = new Player("Erol");
-    Bet bet = new Bet(player, "1", 2.0);
+    Bet bet = new Bet(player, "1", new BigDecimal(2.0));
     List<Bet> betList = Collections.synchronizedList(new ArrayList());
     betList.add(bet);
 
@@ -125,7 +126,7 @@ public class GameTest {
     fieldPlayerNames.set(game, betList);
 
     List<TotalResult> totalResultList = Collections.synchronizedList(new ArrayList());
-    TotalResult totalResult = new TotalResult(player, 0.0, 0.0);
+    TotalResult totalResult = new TotalResult(player, BigDecimal.ZERO, BigDecimal.ZERO);
     totalResultList.add(totalResult);
 
     Field fieldTotalResultList = game.getClass().getDeclaredField("totalResultList");
@@ -137,8 +138,8 @@ public class GameTest {
     Object value = fieldTotalResultList.get(game);
     List<TotalResult> newTotalResultList = (List) value;
     assertTrue(newTotalResultList.size() == 1);
-    assertTrue(newTotalResultList.get(0).getTotalWin() == 0.0);
-    assertTrue(newTotalResultList.get(0).getTotalBet() == 2.0);
+    assertTrue(newTotalResultList.get(0).getTotalWin().compareTo(BigDecimal.valueOf(0.0)) == 0);
+    assertTrue(newTotalResultList.get(0).getTotalBet().compareTo(BigDecimal.valueOf(2.0)) == 0);
   }
 
   @Test
@@ -147,7 +148,7 @@ public class GameTest {
     Game game = Game.getInstance();
 
     Player player = new Player("Erol");
-    Bet bet = new Bet(player, "EVEN", 2.0);
+    Bet bet = new Bet(player, "EVEN", new BigDecimal(2.0));
     List<Bet> betList = Collections.synchronizedList(new ArrayList());
     betList.add(bet);
 
@@ -156,7 +157,7 @@ public class GameTest {
     fieldPlayerNames.set(game, betList);
 
     List<TotalResult> totalResultList = Collections.synchronizedList(new ArrayList());
-    TotalResult totalResult = new TotalResult(player, 0.0, 0.0);
+    TotalResult totalResult = new TotalResult(player, BigDecimal.ZERO, BigDecimal.ZERO);
     totalResultList.add(totalResult);
 
     Field fieldTotalResultList = game.getClass().getDeclaredField("totalResultList");
@@ -168,8 +169,8 @@ public class GameTest {
     Object value = fieldTotalResultList.get(game);
     List<TotalResult> newTotalResultList = (List) value;
     assertTrue(newTotalResultList.size() == 1);
-    assertTrue(newTotalResultList.get(0).getTotalWin() == 0.0);
-    assertTrue(newTotalResultList.get(0).getTotalBet() == 2.0);
+    assertTrue(newTotalResultList.get(0).getTotalWin().compareTo(BigDecimal.valueOf(0.0)) == 0);
+    assertTrue(newTotalResultList.get(0).getTotalBet().compareTo(BigDecimal.valueOf(2.0)) == 0);
   }
 
   @Test
@@ -178,7 +179,7 @@ public class GameTest {
     Game game = Game.getInstance();
 
     Player player = new Player("Erol");
-    Bet bet = new Bet(player, "EVEN", 2.0);
+    Bet bet = new Bet(player, "EVEN", new BigDecimal(2.0));
     List<Bet> betList = Collections.synchronizedList(new ArrayList());
     betList.add(bet);
 
@@ -187,7 +188,7 @@ public class GameTest {
     fieldPlayerNames.set(game, betList);
 
     List<TotalResult> totalResultList = Collections.synchronizedList(new ArrayList());
-    TotalResult totalResult = new TotalResult(player, 0.0, 0.0);
+    TotalResult totalResult = new TotalResult(player, BigDecimal.ZERO, BigDecimal.ZERO);
     totalResultList.add(totalResult);
 
     Field fieldTotalResultList = game.getClass().getDeclaredField("totalResultList");
@@ -199,8 +200,8 @@ public class GameTest {
     Object value = fieldTotalResultList.get(game);
     List<TotalResult> newTotalResultList = (List) value;
     assertTrue(newTotalResultList.size() == 1);
-    assertTrue(newTotalResultList.get(0).getTotalWin() == 4.0);
-    assertTrue(newTotalResultList.get(0).getTotalBet() == 2.0);
+    assertTrue(newTotalResultList.get(0).getTotalWin().compareTo(BigDecimal.valueOf(4.0)) == 0);
+    assertTrue(newTotalResultList.get(0).getTotalBet().compareTo(BigDecimal.valueOf(2.0)) == 0);
   }
 
   @Test
@@ -209,7 +210,7 @@ public class GameTest {
     Game game = Game.getInstance();
 
     Player player = new Player("Erol");
-    Bet bet = new Bet(player, "ODD", 2.0);
+    Bet bet = new Bet(player, "ODD", new BigDecimal(2.0));
     List<Bet> betList = Collections.synchronizedList(new ArrayList());
     betList.add(bet);
 
@@ -218,7 +219,7 @@ public class GameTest {
     fieldPlayerNames.set(game, betList);
 
     List<TotalResult> totalResultList = Collections.synchronizedList(new ArrayList());
-    TotalResult totalResult = new TotalResult(player, 0.0, 0.0);
+    TotalResult totalResult = new TotalResult(player, BigDecimal.ZERO, BigDecimal.ZERO);
     totalResultList.add(totalResult);
 
     Field fieldTotalResultList = game.getClass().getDeclaredField("totalResultList");
@@ -230,8 +231,8 @@ public class GameTest {
     Object value = fieldTotalResultList.get(game);
     List<TotalResult> newTotalResultList = (List) value;
     assertTrue(newTotalResultList.size() == 1);
-    assertTrue(newTotalResultList.get(0).getTotalWin() == 0.0);
-    assertTrue(newTotalResultList.get(0).getTotalBet() == 2.0);
+    assertTrue(newTotalResultList.get(0).getTotalWin().compareTo(BigDecimal.valueOf(0.0)) == 0);
+    assertTrue(newTotalResultList.get(0).getTotalBet().compareTo(BigDecimal.valueOf(2.0)) == 0);
   }
 
   @Test
@@ -240,7 +241,7 @@ public class GameTest {
     Game game = Game.getInstance();
 
     Player player = new Player("Erol");
-    Bet bet = new Bet(player, "ODD", 2.0);
+    Bet bet = new Bet(player, "ODD", new BigDecimal(2.0));
     List<Bet> betList = Collections.synchronizedList(new ArrayList());
     betList.add(bet);
 
@@ -249,7 +250,7 @@ public class GameTest {
     fieldPlayerNames.set(game, betList);
 
     List<TotalResult> totalResultList = Collections.synchronizedList(new ArrayList());
-    TotalResult totalResult = new TotalResult(player, 0.0, 0.0);
+    TotalResult totalResult = new TotalResult(player, BigDecimal.ZERO, BigDecimal.ZERO);
     totalResultList.add(totalResult);
 
     Field fieldTotalResultList = game.getClass().getDeclaredField("totalResultList");
@@ -261,8 +262,8 @@ public class GameTest {
     Object value = fieldTotalResultList.get(game);
     List<TotalResult> newTotalResultList = (List) value;
     assertTrue(newTotalResultList.size() == 1);
-    assertTrue(newTotalResultList.get(0).getTotalWin() == 4.0);
-    assertTrue(newTotalResultList.get(0).getTotalBet() == 2.0);
+    assertTrue(newTotalResultList.get(0).getTotalWin().compareTo(BigDecimal.valueOf(4.0)) == 0);
+    assertTrue(newTotalResultList.get(0).getTotalBet().compareTo(BigDecimal.valueOf(2.0)) == 0);
   }
 
   @Test
